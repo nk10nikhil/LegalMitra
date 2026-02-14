@@ -56,8 +56,13 @@ function parseIdentifier(identifier: string) {
 }
 
 async function routeToRoleDashboard(router: ReturnType<typeof useRouter>) {
-  const profile = (await api.get<{ role: UserRole }>('/profiles/me')).data;
-  router.push(roleRoutes[profile.role] ?? '/dashboard');
+  try {
+    const profile = (await api.get<{ role: UserRole }>('/profiles/me')).data;
+    router.push(roleRoutes[profile.role] ?? '/dashboard/citizen');
+  } catch {
+    toast.error('Profile service is temporarily unavailable. Redirecting to dashboard.');
+    router.push('/dashboard/citizen');
+  }
 }
 
 export default function LoginPage() {

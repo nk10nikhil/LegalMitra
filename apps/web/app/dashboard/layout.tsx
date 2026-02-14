@@ -15,6 +15,7 @@ type Profile = {
 
 const navItems = (roleHome: string) => [
   { href: roleHome, label: 'Role Dashboard' },
+  { href: '/dashboard/ask', label: 'Ask Legal AI' },
   { href: '/dashboard/profile', label: 'Profile' },
   { href: '/dashboard/track', label: 'Track Case' },
   { href: '/dashboard/cases', label: 'My Cases' },

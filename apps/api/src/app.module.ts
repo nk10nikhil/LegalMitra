@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { CommonModule } from './common/common.module';
 import { HealthController } from './health.controller';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   controllers: [HealthController],
@@ -19,6 +20,7 @@ import { HealthController } from './health.controller';
     CommonModule,
     ProfilesModule,
     CasesModule,
+    AiModule,
   ],
 })
 export class AppModule {}

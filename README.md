@@ -1,10 +1,10 @@
-# LegalMitra — Phase 1 (Foundation & Case Tracking)
+# LegalMitra — Phase 1 + Phase 2 (AI Legal Q&A)
 
 LegalMitra is an AI-powered digital justice platform for India. This repository contains a production-oriented Phase 1 monorepo implementation with:
 
 - Next.js 14 frontend (Supabase email/mobile password auth + forgot-password + magic-link fallback)
 - NestJS backend (JWT verification via Supabase `getUser()`, Prisma, case tracking APIs)
-- FastAPI AI service (placeholder health + ask endpoint)
+- FastAPI AI service (multilingual legal Q&A endpoint)
 - Turborepo workspace and deployment scaffolding for Vercel + Railway
 
 ## Monorepo Structure
@@ -51,6 +51,15 @@ legalmitra/
   - Redis-based rate limiting guard
   - Supabase RLS SQL policies in `infra/scripts/supabase_phase1.sql`
 
+## Phase 2 Features
+
+- AI Legal Q&A endpoint with confidence score and disclaimer (`POST /ai/ask`)
+- AI chat history endpoint (`GET /ai/history`) for authenticated users
+- Hindi/English question support (`language: en | hi`)
+- Frontend chat page at `/dashboard/ask`
+- NestJS proxy integration to AI service via `AI_SERVICE_URL`
+- Optional context-grounded generation when ML dependencies are installed in AI service
+
 ## Prerequisites
 
 - Node.js 20+
@@ -91,6 +100,7 @@ Set required values:
   - `SUPABASE_SERVICE_ROLE_KEY`
   - `CORS_ORIGIN`
   - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (optional)
+  - `AI_SERVICE_URL` (default `http://localhost:8000`)
 - AI (`apps/ai/.env`)
   - `PORT`
 
@@ -181,6 +191,13 @@ curl -X POST http://localhost:4000/cases/track \
 - [ ] User views detail and refreshes case data
 - [ ] API `/health` returns status
 - [ ] AI `/health` returns status
+
+## Phase 2 Demo Checklist
+
+- [ ] User opens `/dashboard/ask`
+- [ ] User asks legal question in English and receives answer with confidence
+- [ ] User asks legal question in Hindi and receives Hindi answer
+- [ ] Response includes AI disclaimer
 
 ## Live Links and Demo Video
 

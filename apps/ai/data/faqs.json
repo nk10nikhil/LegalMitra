@@ -1,0 +1,98 @@
+[
+  {
+    "id": "faq_001",
+    "question_en": "What should I do after receiving a legal notice?",
+    "question_hi": "कानूनी नोटिस मिलने के बाद मुझे क्या करना चाहिए?",
+    "answer_en": "Do not ignore it. Read the notice carefully, collect related documents, and consult a qualified lawyer before replying within the stated timeline.",
+    "answer_hi": "नोटिस को नज़रअंदाज़ न करें। नोटिस ध्यान से पढ़ें, संबंधित दस्तावेज़ जुटाएँ और तय समयसीमा में जवाब देने से पहले योग्य वकील से सलाह लें।",
+    "keywords": ["legal notice", "reply", "timeline", "lawyer"]
+  },
+  {
+    "id": "faq_002",
+    "question_en": "How can I check my court case status in India?",
+    "question_hi": "भारत में मैं अपने कोर्ट केस की स्थिति कैसे देख सकता/सकती हूँ?",
+    "answer_en": "You can check status on the eCourts portal using case number, party name, or advocate details. Keep court code and filing details ready.",
+    "answer_hi": "आप eCourts पोर्टल पर केस नंबर, पक्षकार नाम या वकील विवरण से स्थिति देख सकते हैं। कोर्ट कोड और फाइलिंग विवरण साथ रखें।",
+    "keywords": ["ecourts", "case status", "court code"]
+  },
+  {
+    "id": "faq_003",
+    "question_en": "What is anticipatory bail?",
+    "question_hi": "अग्रिम जमानत क्या होती है?",
+    "answer_en": "Anticipatory bail is pre-arrest bail granted by a Sessions Court or High Court when a person expects arrest for a non-bailable offence.",
+    "answer_hi": "अग्रिम जमानत वह जमानत है जो गिरफ्तारी से पहले सत्र न्यायालय या उच्च न्यायालय द्वारा दी जा सकती है जब गैर-जमानती अपराध में गिरफ्तारी की आशंका हो।",
+    "keywords": ["bail", "criminal", "high court"]
+  },
+  {
+    "id": "faq_004",
+    "question_en": "How long do I have to file an appeal in civil matters?",
+    "question_hi": "सिविल मामलों में अपील दाखिल करने की समयसीमा क्या है?",
+    "answer_en": "Limitation periods vary by statute and case type. Many civil appeals are time-bound from the date of decree/order, so verify the exact period immediately.",
+    "answer_hi": "सीमाबंदी अवधि कानून और मामले के प्रकार पर निर्भर करती है। कई सिविल अपीलें डिक्री/आदेश की तारीख से समयबद्ध होती हैं, इसलिए तुरंत सही अवधि जांचें।",
+    "keywords": ["appeal", "limitation", "civil"]
+  },
+  {
+    "id": "faq_005",
+    "question_en": "Can I file a consumer complaint online?",
+    "question_hi": "क्या मैं उपभोक्ता शिकायत ऑनलाइन दर्ज कर सकता/सकती हूँ?",
+    "answer_en": "Yes, many consumer disputes can be filed online through the e-daakhil system, depending on jurisdiction and document completeness.",
+    "answer_hi": "हाँ, कई उपभोक्ता विवाद e-daakhil सिस्टम के माध्यम से ऑनलाइन दाखिल किए जा सकते हैं, यह अधिकार क्षेत्र और दस्तावेज़ों की पूर्णता पर निर्भर करता है।",
+    "keywords": ["consumer", "e-daakhil", "complaint"]
+  },
+  {
+    "id": "faq_006",
+    "question_en": "What documents are needed for a rent agreement?",
+    "question_hi": "किराया समझौते के लिए कौन-कौन से दस्तावेज़ चाहिए?",
+    "answer_en": "Typically ID/address proof of landlord and tenant, property details, rent/security terms, duration, and witness details are required.",
+    "answer_hi": "आम तौर पर मकान-मालिक और किरायेदार के पहचान/पते का प्रमाण, संपत्ति विवरण, किराया/सिक्योरिटी शर्तें, अवधि और गवाह विवरण आवश्यक होते हैं।",
+    "keywords": ["rent agreement", "documents", "tenant"]
+  },
+  {
+    "id": "faq_007",
+    "question_en": "What is the difference between FIR and complaint?",
+    "question_hi": "एफआईआर और शिकायत में क्या अंतर है?",
+    "answer_en": "An FIR records information about a cognizable offence and triggers police investigation. A complaint is broader and may or may not become an FIR.",
+    "answer_hi": "एफआईआर संज्ञेय अपराध की सूचना दर्ज करती है और पुलिस जांच शुरू होती है। शिकायत व्यापक शब्द है, जो कभी-कभी एफआईआर में बदल सकती है।",
+    "keywords": ["fir", "complaint", "police"]
+  },
+  {
+    "id": "faq_008",
+    "question_en": "Can I represent myself in court without a lawyer?",
+    "question_hi": "क्या मैं बिना वकील के खुद कोर्ट में पेश हो सकता/सकती हूँ?",
+    "answer_en": "In many matters, party-in-person appearance is allowed, but procedural compliance is critical. Legal advice is strongly recommended.",
+    "answer_hi": "कई मामलों में पक्षकार स्वयं पेश हो सकता है, लेकिन प्रक्रिया का पालन बहुत जरूरी है। कानूनी सलाह लेना उचित है।",
+    "keywords": ["party in person", "lawyer", "court"]
+  },
+  {
+    "id": "faq_009",
+    "question_en": "How do I apply for certified copies of court orders?",
+    "question_hi": "कोर्ट के आदेश की प्रमाणित प्रति कैसे लें?",
+    "answer_en": "Apply through the concerned court copying section or eCourts workflow where available, pay prescribed fee, and track application number.",
+    "answer_hi": "संबंधित अदालत के कॉपींग सेक्शन या उपलब्ध eCourts प्रक्रिया से आवेदन करें, निर्धारित शुल्क जमा करें और आवेदन नंबर ट्रैक करें।",
+    "keywords": ["certified copy", "court order", "copying section"]
+  },
+  {
+    "id": "faq_010",
+    "question_en": "What should I do if cheque bounces?",
+    "question_hi": "चेक बाउंस होने पर क्या करना चाहिए?",
+    "answer_en": "Issue a statutory legal notice within the required period and preserve return memo, cheque, and transaction proof before initiating legal action.",
+    "answer_hi": "निर्धारित समय में वैधानिक कानूनी नोटिस भेजें और कानूनी कार्रवाई से पहले रिटर्न मेमो, चेक और लेनदेन के प्रमाण सुरक्षित रखें।",
+    "keywords": ["cheque bounce", "notice", "ni act"]
+  },
+  {
+    "id": "faq_011",
+    "question_en": "What is mediation in legal disputes?",
+    "question_hi": "कानूनी विवादों में मध्यस्थता क्या होती है?",
+    "answer_en": "Mediation is a voluntary settlement process facilitated by a neutral mediator to help parties reach a mutually acceptable resolution.",
+    "answer_hi": "मध्यस्थता एक स्वैच्छिक समझौता प्रक्रिया है, जिसमें निष्पक्ष मध्यस्थ पक्षों को आपसी समाधान तक पहुँचने में मदद करता है।",
+    "keywords": ["mediation", "settlement", "dispute"]
+  },
+  {
+    "id": "faq_012",
+    "question_en": "How can I get free legal aid in India?",
+    "question_hi": "भारत में मुफ्त कानूनी सहायता कैसे मिलेगी?",
+    "answer_en": "You can approach District Legal Services Authority (DLSA) or State Legal Services Authority if you are eligible under legal aid criteria.",
+    "answer_hi": "यदि आप पात्रता मानदंड में आते हैं, तो जिला विधिक सेवा प्राधिकरण (DLSA) या राज्य विधिक सेवा प्राधिकरण से सहायता ले सकते हैं।",
+    "keywords": ["legal aid", "dlsa", "free lawyer"]
+  }
+]
