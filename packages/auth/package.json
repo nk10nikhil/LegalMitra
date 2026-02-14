@@ -1,0 +1,11 @@
+{
+  "name": "@legalmitra/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1"
+  }
+}

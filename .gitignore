@@ -1,0 +1,17 @@
+node_modules
+.next
+.turbo
+dist
+coverage
+# Ignore all .env files
+.env
+.env.*
+*.env
+*.env.*
+*.log
+*.tsbuildinfo
+apps/api/prisma/generated
+__pycache__
+.pytest_cache
+.venv
+.DS_Store

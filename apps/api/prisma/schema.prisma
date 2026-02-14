@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  citizen
+  lawyer
+  judge
+  admin
+}
+
+model Profile {
+  id           String    @id @db.Uuid
+  role         Role      @default(citizen)
+  fullName     String?   @map("full_name")
+  phone        String?
+  barCouncilId String?   @map("bar_council_id")
+  verified     Boolean   @default(false)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  cases        Case[]
+
+  @@map("profiles")
+}
+
+model Case {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @map("user_id") @db.Uuid
+  caseNumber  String    @map("case_number")
+  courtCode   String    @map("court_code")
+  caseData    Json      @map("case_data")
+  nextHearing DateTime? @map("next_hearing")
+  status      String
+  lastSynced  DateTime  @default(now()) @map("last_synced")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  user        Profile   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([caseNumber, courtCode])
+  @@map("cases")
+}
+
+model CaseNote {
+  id        String   @id @default(uuid()) @db.Uuid
+  caseId    String   @map("case_id") @db.Uuid
+  lawyerId  String   @map("lawyer_id") @db.Uuid
+  note      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("case_notes")
+}
+
+model Document {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  caseId    String?  @map("case_id") @db.Uuid
+  type      String
+  title     String
+  fileUrl   String   @map("file_url")
+  formData  Json     @map("form_data")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("documents")
+}
+
+model Hearing {
+  id           String    @id @default(uuid()) @db.Uuid
+  caseId       String    @map("case_id") @db.Uuid
+  scheduledAt  DateTime  @map("scheduled_at")
+  roomUrl      String    @map("room_url")
+  status       String
+  recordingUrl String?   @map("recording_url")
+  transcript   String?
+
+  @@map("hearings")
+}
+
+model Notification {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  type      String
+  content   Json
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("notifications")
+}
