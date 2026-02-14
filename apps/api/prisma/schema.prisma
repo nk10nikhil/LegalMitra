@@ -18,7 +18,11 @@ model Profile {
   id           String    @id @db.Uuid
   role         Role      @default(citizen)
   fullName     String?   @map("full_name")
+  email        String?
   phone        String?
+  dob          DateTime? @db.Date
+  aadhaarHash  String?   @map("aadhaar_hash")
+  aadhaarLast4 String?   @map("aadhaar_last4")
   barCouncilId String?   @map("bar_council_id")
   verified     Boolean   @default(false)
   createdAt    DateTime  @default(now()) @map("created_at")

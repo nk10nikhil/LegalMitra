@@ -7,7 +7,10 @@ import { api } from '@/lib/api';
 type Profile = {
   id: string;
   fullName: string | null;
+  email: string | null;
   phone: string | null;
+  dob: string | null;
+  aadhaarMasked: string | null;
   role: string;
   verified: boolean;
 };
@@ -31,7 +34,16 @@ export default function ProfilePage() {
           <strong>Name:</strong> {data?.fullName ?? 'Not set'}
         </p>
         <p>
+          <strong>Email:</strong> {data?.email ?? 'Not set'}
+        </p>
+        <p>
           <strong>Phone:</strong> {data?.phone ?? 'Not set'}
+        </p>
+        <p>
+          <strong>DOB:</strong> {data?.dob ? new Date(data.dob).toLocaleDateString() : 'Not set'}
+        </p>
+        <p>
+          <strong>Aadhaar:</strong> {data?.aadhaarMasked ?? 'Not set'}
         </p>
         <p>
           <strong>Verified:</strong> {data?.verified ? 'Yes' : 'No'}

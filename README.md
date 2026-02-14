@@ -2,7 +2,7 @@
 
 LegalMitra is an AI-powered digital justice platform for India. This repository contains a production-oriented Phase 1 monorepo implementation with:
 
-- Next.js 14 frontend (Supabase email/password auth + dashboard)
+- Next.js 14 frontend (Supabase email/mobile password auth + forgot-password + magic-link fallback)
 - NestJS backend (JWT verification via Supabase `getUser()`, Prisma, case tracking APIs)
 - FastAPI AI service (placeholder health + ask endpoint)
 - Turborepo workspace and deployment scaffolding for Vercel + Railway
@@ -30,7 +30,9 @@ legalmitra/
 
 ## Phase 1 Features
 
-- Supabase email/password authentication in frontend
+- Supabase authentication in frontend (email/mobile password login, forgot-password by email, magic-link fallback)
+- Rich registration fields: name, DOB, phone, optional email, Aadhaar, role
+- Role-based dashboard routes (`/dashboard/citizen|lawyer|judge|admin`)
 - Protected dashboard routes
 - Profile bootstrap/sync (`profiles` upsert on first protected request)
 - Case tracking via eCourts integration utility (`axios + cheerio`)
@@ -40,6 +42,7 @@ legalmitra/
   - `GET /cases/:id`
   - `POST /cases/:id/refresh`
   - `GET /profiles/me`
+  - `PUT /profiles/me`
   - `GET /health`
 - Security baseline:
   - Supabase JWT validation on protected API routes
@@ -96,11 +99,16 @@ Set required values:
 In Supabase Dashboard:
 
 1. `Authentication -> Providers -> Email`
-  - Enable Email provider
-  - For quick local testing, disable **Confirm email** (so sign-up logs in instantly)
+
+- Enable Email provider
+- For quick local testing, disable **Confirm email** (so sign-up logs in instantly)
+
 2. `Authentication -> URL Configuration`
-  - Site URL: `http://localhost:3000`
-  - Add redirect URL: `http://localhost:3000/dashboard`
+
+- Site URL: `http://localhost:3000`
+- Add redirect URL: `http://localhost:3000/dashboard`
+- Add password reset redirect URL: `http://localhost:3000/`
+
 3. If you keep **Confirm email** enabled, configure SMTP or check Supabase Auth logs + spam folder.
 
 ## Database Setup (Supabase)
@@ -164,7 +172,9 @@ curl -X POST http://localhost:4000/cases/track \
 
 ## Phase 1 Demo Checklist
 
-- [ ] User can sign up with email + password
+- [ ] User can sign up with full profile details (name, DOB, phone, optional email, Aadhaar, role)
+- [ ] User can sign in using email or mobile + password
+- [ ] User can trigger forgot-password email link
 - [ ] User opens `/dashboard/profile` and profile is auto-created
 - [ ] User tracks a case from `/dashboard/track`
 - [ ] User views list in `/dashboard/cases`

@@ -6,11 +6,20 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   role text not null default 'citizen' check (role in ('citizen','lawyer','judge','admin')),
   full_name text,
+  email text,
   phone text,
+  dob date,
+  aadhaar_hash text,
+  aadhaar_last4 text,
   bar_council_id text,
   verified boolean not null default false,
   created_at timestamptz not null default now()
 );
+
+alter table public.profiles add column if not exists email text;
+alter table public.profiles add column if not exists dob date;
+alter table public.profiles add column if not exists aadhaar_hash text;
+alter table public.profiles add column if not exists aadhaar_last4 text;
 
 -- Cases
 create table if not exists public.cases (
