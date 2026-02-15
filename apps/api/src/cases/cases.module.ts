@@ -8,5 +8,6 @@ import { ProfilesModule } from '../profiles/profiles.module';
   imports: [ProfilesModule],
   controllers: [CasesController],
   providers: [CasesService, ECourtsService],
+  exports: [CasesService, ECourtsService],
 })
 export class CasesModule {}

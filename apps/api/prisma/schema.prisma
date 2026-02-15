@@ -94,3 +94,16 @@ model Notification {
   @@index([userId])
   @@map("notifications")
 }
+
+model AuditLog {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @map("user_id") @db.Uuid
+  action    String
+  resource  String
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([resource])
+  @@map("audit_logs")
+}

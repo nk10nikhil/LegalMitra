@@ -1,6 +1,8 @@
 import { HttpException, Injectable, ServiceUnavailableException } from '@nestjs/common';
 import axios from 'axios';
 import { AskAiDto } from './dto/ask-ai.dto';
+import { PredictAiDto } from './dto/predict-ai.dto';
+import { AuditLogService } from '../common/audit-log.service';
 
 type HistoryRole = 'user' | 'assistant';
 
@@ -21,11 +23,20 @@ type AiAskResponse = {
   disclaimer: string;
 };
 
+type AiPredictResponse = {
+  success_probability: number;
+  similar_cases: number;
+  model: string;
+  disclaimer: string;
+};
+
 @Injectable()
 export class AiService {
   private readonly aiUrl = process.env.AI_SERVICE_URL ?? 'http://localhost:8000';
   private readonly historyByUser = new Map<string, HistoryItem[]>();
   private readonly maxHistoryPerUser = 50;
+
+  constructor(private readonly auditLogService: AuditLogService) {}
 
   private appendHistory(userId: string, item: HistoryItem) {
     const existing = this.historyByUser.get(userId) ?? [];
@@ -59,6 +70,17 @@ export class AiService {
         createdAt: now,
       });
 
+      await this.auditLogService.log({
+        userId,
+        action: 'ai.ask',
+        resource: 'ai:qna',
+        metadata: {
+          language: response.data.language,
+          confidence: response.data.confidence,
+          sourceId: response.data.source_id ?? null,
+        },
+      });
+
       return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
@@ -70,6 +92,40 @@ export class AiService {
 
       throw new ServiceUnavailableException(
         'AI service is unavailable. Check AI_SERVICE_URL and AI service health.',
+      );
+    }
+  }
+
+  async predict(userId: string, payload: PredictAiDto): Promise<AiPredictResponse> {
+    try {
+      const response = await axios.post<AiPredictResponse>(`${this.aiUrl}/predict`, payload);
+
+      await this.auditLogService.log({
+        userId,
+        action: 'ai.predict',
+        resource: 'ai:prediction',
+        metadata: {
+          court: payload.court,
+          year: payload.year,
+          actsCitedCount: payload.acts_cited_count,
+          priorHearings: payload.prior_hearings,
+          successProbability: response.data.success_probability,
+          similarCases: response.data.similar_cases,
+          model: response.data.model,
+        },
+      });
+
+      return response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response) {
+        throw new HttpException(
+          error.response.data ?? { message: 'AI prediction service failed' },
+          error.response.status,
+        );
+      }
+
+      throw new ServiceUnavailableException(
+        'AI prediction service is unavailable. Check AI_SERVICE_URL and AI service health.',
       );
     }
   }

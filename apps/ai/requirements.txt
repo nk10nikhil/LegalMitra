@@ -2,3 +2,5 @@ fastapi==0.115.6
 uvicorn[standard]==0.34.0
 pydantic==2.10.4; python_version < "3.14"
 pydantic>=2.11.7,<3.0.0; python_version >= "3.14"
+PyPDF2==3.0.1
+python-multipart==0.0.12

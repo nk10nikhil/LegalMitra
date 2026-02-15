@@ -28,3 +28,4 @@
 - BullMQ jobs for periodic case refresh.
 - Socket.io for real-time notification dispatch.
 - LiveKit hearing orchestration in `hearings` module.
+- Document generation and storage workflows are implemented in Phase 3 (`/dashboard/documents`).

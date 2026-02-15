@@ -1,0 +1,11 @@
+court,year,petitioner_type,respondent_type,acts_cited_count,prior_hearings,outcome
+Supreme Court of India,2021,individual,state,4,6,1
+Delhi High Court,2019,company,company,2,3,0
+Bombay High Court,2022,individual,state,5,7,1
+Karnataka High Court,2018,company,regulator,3,4,1
+Madras High Court,2017,individual,individual,1,2,0
+Calcutta High Court,2020,company,state,4,5,1
+Allahabad High Court,2016,individual,state,2,3,0
+Gujarat High Court,2023,company,company,5,8,1
+Rajasthan High Court,2015,individual,state,1,1,0
+Punjab and Haryana High Court,2024,individual,state,6,9,1

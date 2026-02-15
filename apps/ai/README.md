@@ -31,6 +31,9 @@ python -m pip install -r requirements-ml.txt
 
 - `GET /health`
 - `POST /ai/ask`
+- `POST /embed`
+- `POST /summarize`
+- `POST /predict`
 
 ## `POST /ai/ask`
 
@@ -59,3 +62,36 @@ Notes:
 
 - Uses multilingual FAQ retrieval with optional sentence-transformer embeddings.
 - Falls back to keyword ranking if embedding model is unavailable.
+
+## `POST /summarize`
+
+Multipart upload endpoint for PDF judgment summarization.
+
+Form-data:
+
+- `file`: PDF file
+
+Response includes summary text, extracted char count, and model name.
+
+## `POST /predict`
+
+Request example:
+
+```json
+{
+  "court": "Delhi High Court",
+  "year": 2023,
+  "petitioner_type": "individual",
+  "respondent_type": "state",
+  "acts_cited_count": 3,
+  "prior_hearings": 2
+}
+```
+
+Returns success probability, similar case count, model name, and disclaimer.
+
+Training scaffold:
+
+- Sample data: `data/case_outcomes_sample.csv`
+- Training script: `train_predictor.py`
+- Output model: `models/case_outcome_model.pkl`

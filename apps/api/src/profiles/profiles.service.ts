@@ -2,12 +2,16 @@ import { Injectable, Logger } from '@nestjs/common';
 import { createHash } from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { AuditLogService } from '../common/audit-log.service';
 
 @Injectable()
 export class ProfilesService {
   private readonly logger = new Logger(ProfilesService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly auditLogService: AuditLogService,
+  ) {}
 
   private fallbackProfile(params: {
     userId: string;
@@ -78,6 +82,19 @@ export class ProfilesService {
           dob: input.dob ? new Date(input.dob) : undefined,
           aadhaarHash,
           aadhaarLast4,
+        },
+      });
+
+      await this.auditLogService.log({
+        userId,
+        action: 'profile.update',
+        resource: `profiles:${profile.id}`,
+        metadata: {
+          role: profile.role,
+          hasEmail: Boolean(profile.email),
+          hasPhone: Boolean(profile.phone),
+          hasDob: Boolean(profile.dob),
+          aadhaarUpdated: Boolean(input.aadhaarNumber),
         },
       });
 
