@@ -10,36 +10,40 @@ import { api } from '@/lib/api';
 import { supabase } from '@/lib/supabase';
 import { io } from 'socket.io-client';
 import { toast } from 'sonner';
+import { useI18n } from '@/lib/i18n';
+import { LanguageSwitcher } from '@/components/language-switcher';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 type Profile = {
   id: string;
   role: 'citizen' | 'lawyer' | 'judge' | 'admin';
 };
 
-const navItems = (roleHome: string) => [
-  { href: roleHome, label: 'Role Dashboard' },
-  { href: '/dashboard/ask', label: 'Ask Legal AI' },
-  { href: '/dashboard/documents', label: 'My Documents' },
-  { href: '/dashboard/summarize', label: 'Summarize Judgment' },
-  { href: '/dashboard/case-laws', label: 'Case Law Search' },
-  { href: '/dashboard/profile', label: 'Profile' },
-  { href: '/dashboard/track', label: 'Track Case' },
-  { href: '/dashboard/cases', label: 'My Cases' },
-  { href: '/dashboard/hearings', label: 'Hearings' },
-  { href: '/dashboard/notifications', label: 'Notifications' },
-  { href: '/dashboard/audit', label: 'Audit Trail' },
-  { href: '/dashboard/reports', label: 'My Reports' },
-  { href: '/dashboard/odr', label: 'ODR Rooms' },
-];
-
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const { t } = useI18n();
   const { data } = useQuery({
     queryKey: ['profile-layout'],
     queryFn: async () => (await api.get<Profile>('/profiles/me')).data,
   });
 
   const roleHome = data?.role ? `/dashboard/${data.role}` : '/dashboard';
+  const items = [
+    { href: roleHome, label: t('roleDashboard') },
+    { href: '/dashboard/ask', label: t('askLegalAI') },
+    { href: '/dashboard/documents', label: t('myDocuments') },
+    { href: '/dashboard/summarize', label: t('summarizeJudgment') },
+    { href: '/dashboard/case-laws', label: t('caseLawSearch') },
+    { href: '/dashboard/profile', label: t('profile') },
+    { href: '/dashboard/track', label: t('trackCase') },
+    { href: '/dashboard/cases', label: t('myCases') },
+    { href: '/dashboard/hearings', label: t('hearings') },
+    { href: '/dashboard/notifications', label: t('notifications') },
+    { href: '/dashboard/audit', label: t('auditTrail') },
+    { href: '/dashboard/reports', label: t('myReports') },
+    { href: '/dashboard/odr', label: t('odrRooms') },
+    { href: '/dashboard/integrations', label: 'Integrations' },
+  ];
 
   useEffect(() => {
     if (!data?.id) return;
@@ -79,13 +83,13 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   return (
     <AuthGuard>
-      <div className="min-h-screen bg-slate-50">
-        <header className="border-b bg-white">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <header className="border-b bg-white dark:border-slate-800 dark:bg-slate-900">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <nav className="flex flex-wrap items-center gap-4 text-sm">
-              {navItems(roleHome).map((item) => (
+            <nav aria-label="Primary" className="flex flex-wrap items-center gap-4 text-sm">
+              {items.map((item) => (
                 <Link
-                  className="text-slate-700 hover:text-slate-900"
+                  className="text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-slate-100"
                   href={item.href}
                   key={item.href}
                 >
@@ -93,12 +97,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </Link>
               ))}
             </nav>
-            <Button onClick={logout} variant="outline">
-              Logout
-            </Button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <LanguageSwitcher />
+              <Button onClick={logout} variant="outline">
+                {t('logout')}
+              </Button>
+            </div>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-6 py-8">{children}</main>
+        <main className="mx-auto max-w-6xl px-6 py-8" id="main-content">
+          {children}
+        </main>
       </div>
     </AuthGuard>
   );

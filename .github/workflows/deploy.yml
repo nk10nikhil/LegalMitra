@@ -1,12 +1,14 @@
 name: Deploy
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
 jobs:
   deploy-web:
     runs-on: ubuntu-latest
+    if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID_WEB != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -28,6 +30,7 @@ jobs:
 
   deploy-api-ai:
     runs-on: ubuntu-latest
+    if: ${{ secrets.RAILWAY_API_DEPLOY_HOOK != '' && secrets.RAILWAY_AI_DEPLOY_HOOK != '' }}
     steps:
       - uses: actions/checkout@v4
       - name: Trigger Railway API deploy

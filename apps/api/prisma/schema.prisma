@@ -67,6 +67,7 @@ model Document {
   fileUrl   String   @map("file_url")
   formData  Json     @map("form_data")
   createdAt DateTime @default(now()) @map("created_at")
+  settlements OdrSettlementAgreement[]
 
   @@map("documents")
 }
@@ -79,8 +80,28 @@ model Hearing {
   status       String
   recordingUrl String?   @map("recording_url")
   transcript   String?
+  segments     HearingTranscriptSegment[]
 
   @@map("hearings")
+}
+
+model HearingTranscriptSegment {
+  id            String    @id @default(uuid()) @db.Uuid
+  hearingId     String    @map("hearing_id") @db.Uuid
+  speaker       String?
+  text          String
+  startedAt     DateTime? @map("started_at")
+  endedAt       DateTime? @map("ended_at")
+  confidence    Float?
+  source        String
+  sourceEventId String?   @map("source_event_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  hearing       Hearing   @relation(fields: [hearingId], references: [id], onDelete: Cascade)
+
+  @@index([hearingId])
+  @@index([createdAt])
+  @@index([sourceEventId])
+  @@map("hearing_transcript_segments")
 }
 
 model Notification {
@@ -106,4 +127,100 @@ model AuditLog {
   @@index([userId])
   @@index([resource])
   @@map("audit_logs")
+}
+
+model OdrRoom {
+  id                String       @id @default(uuid()) @db.Uuid
+  ownerUserId       String       @map("owner_user_id") @db.Uuid
+  title             String
+  counterpartyEmail String       @map("counterparty_email")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  messages          OdrMessage[]
+  settlements       OdrSettlementAgreement[]
+
+  @@index([ownerUserId])
+  @@map("odr_rooms")
+}
+
+model OdrMessage {
+  id           String   @id @default(uuid()) @db.Uuid
+  roomId       String   @map("room_id") @db.Uuid
+  senderUserId String   @map("sender_user_id") @db.Uuid
+  message      String
+  createdAt    DateTime @default(now()) @map("created_at")
+  room         OdrRoom  @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId])
+  @@index([senderUserId])
+  @@map("odr_messages")
+}
+
+model OdrSettlementAgreement {
+  id                 String    @id @default(uuid()) @db.Uuid
+  roomId             String    @map("room_id") @db.Uuid
+  proposerUserId     String    @map("proposer_user_id") @db.Uuid
+  terms              String
+  aiMediatorSuggestion String? @map("ai_mediator_suggestion")
+  status             String
+  decidedAt          DateTime? @map("decided_at")
+  documentId         String?   @map("document_id") @db.Uuid
+  createdAt          DateTime  @default(now()) @map("created_at")
+  room               OdrRoom   @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  document           Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
+
+  @@index([roomId])
+  @@index([proposerUserId])
+  @@index([status])
+  @@map("odr_settlement_agreements")
+}
+
+model LawyerTimeEntry {
+  id          String   @id @default(uuid()) @db.Uuid
+  lawyerId    String   @map("lawyer_id") @db.Uuid
+  caseId      String?  @map("case_id") @db.Uuid
+  description String
+  hours       Float
+  hourlyRate  Float    @map("hourly_rate")
+  workedAt    DateTime @map("worked_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([lawyerId])
+  @@index([caseId])
+  @@map("lawyer_time_entries")
+}
+
+model CaseAccessInvite {
+  id           String    @id @default(uuid()) @db.Uuid
+  caseId       String    @map("case_id") @db.Uuid
+  lawyerId     String    @map("lawyer_id") @db.Uuid
+  inviteeEmail String    @map("invitee_email")
+  status       String
+  acceptedAt   DateTime? @map("accepted_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  @@index([caseId])
+  @@index([lawyerId])
+  @@index([inviteeEmail])
+  @@map("case_access_invites")
+}
+
+model IntegrationConnectorRequest {
+  id             String    @id @default(uuid()) @db.Uuid
+  userId         String    @map("user_id") @db.Uuid
+  caseId         String?   @map("case_id") @db.Uuid
+  connector      String
+  status         String
+  jobId          String?   @map("job_id")
+  requestPayload Json?     @map("request_payload")
+  resultPayload  Json?     @map("result_payload")
+  errorMessage   String?   @map("error_message")
+  completedAt    DateTime? @map("completed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([caseId])
+  @@index([connector, status])
+  @@index([jobId])
+  @@map("integration_connector_requests")
 }

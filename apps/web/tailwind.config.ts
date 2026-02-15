@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#f8fafc',
-        foreground: '#0f172a',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
       },
     },
   },

@@ -18,6 +18,8 @@ import { ReportsModule } from './reports/reports.module';
 import { RealtimeModule } from './realtime/realtime.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { OdrModule } from './odr/odr.module';
+import { AnalyticsModule } from './analytics/analytics.module';
+import { LawyerModule } from './lawyer/lawyer.module';
 
 @Module({
   controllers: [HealthController],
@@ -49,6 +51,8 @@ import { OdrModule } from './odr/odr.module';
     ReportsModule,
     IntegrationsModule,
     OdrModule,
+    AnalyticsModule,
+    LawyerModule,
   ],
 })
 export class AppModule {}

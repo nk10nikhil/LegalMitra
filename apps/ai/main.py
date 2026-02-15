@@ -84,6 +84,17 @@ class PredictResponse(BaseModel):
     disclaimer: str
 
 
+class TranscribeRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=50000)
+    language: str = "en"
+
+
+class TranscribeResponse(BaseModel):
+    transcript: str
+    language: str
+    model: str
+
+
 def _load_faqs() -> list[FAQItem]:
     if not FAQ_PATH.exists():
         return []
@@ -461,4 +472,16 @@ def predict(payload: PredictRequest) -> PredictResponse:
         similar_cases=similar_cases,
         model=model_name,
         disclaimer="For research and educational use only. Not legal advice or a guaranteed outcome.",
+    )
+
+
+@app.post("/transcribe")
+def transcribe(payload: TranscribeRequest) -> TranscribeResponse:
+    transcript = " ".join(payload.text.split())
+    language = _language_key(payload.language)
+
+    return TranscribeResponse(
+        transcript=transcript,
+        language=language,
+        model="livekit-text-normalizer-v1",
     )

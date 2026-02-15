@@ -1,4 +1,10 @@
-# LegalMitra — Phase 1 + Phase 2 (AI Legal Q&A)
+# LegalMitra — India's AI-Powered Digital Justice Platform
+
+> Master prompt alignment and acceptance mapping: see `docs/master-build-status.md`.
+>
+> Accessibility baseline checklist: see `docs/accessibility-baseline.md`.
+>
+> Launch artifacts: `docs/launch-public-urls.md`, `docs/launch-checklist.md`, `docs/launch-demo-script.md`.
 
 LegalMitra is an AI-powered digital justice platform for India. This repository contains a production-oriented Phase 1 monorepo implementation with:
 
@@ -27,6 +33,12 @@ legalmitra/
 ├── docs/
 └── README.md
 ```
+
+## Launch Docs
+
+- Public URL registry: `docs/launch-public-urls.md`
+- Release checklist: `docs/launch-checklist.md`
+- Demo walkthrough: `docs/launch-demo-script.md`
 
 ## Phase 1 Features
 
